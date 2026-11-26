@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {windows,clock,overlaps,lengthSeconds,requestRanges} from './timeline.mjs';
+test('midnight split and fractional boundaries',()=>{const w=windows([{start:'2026-11-25T23:59:47.359900-03:00',end:'2026-11-26T00:00:07.359900-03:00'}]);assert.deepEqual(w.map(x=>[x.day,clock(x.start),clock(x.end)]),[['2026-11-25','23:59:48','00:00:00'],['2026-11-26','00:00:00','00:00:07']]);});
+test('merge adjacent intervals, preserve real gaps',()=>{let w=windows([{start:'2026-11-26T00:00:00-03:00',end:'2026-11-26T00:00:10-03:00'},{start:'2026-11-26T00:00:10-03:00',end:'2026-11-26T00:00:20-03:00'},{start:'2026-11-26T00:00:25-03:00',end:'2026-11-26T00:00:30-03:00'}]);assert.equal(w.length,2);assert.equal(lengthSeconds(w),25);});
+test('adjacent selections do not overlap',()=>{assert.equal(overlaps({start:0,end:1000},{start:1000,end:2000}),false);assert.equal(overlaps({start:0,end:1000},{start:999,end:2000}),true);});
+test('request timestamps preserve instant',()=>assert.equal(requestRanges([{start:0,end:1000}])[0].end,'1970-01-01T00:00:01.000Z'));
