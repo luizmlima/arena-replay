@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Frontend
+node_modules/
+dist/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Video storage
+storage/
+*.mp4
+*.mkv
+*.ts
+*.m3u8
+
+# Database
+*.db
+*.sqlite3
+
+# Logs
+*.log
