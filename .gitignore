@@ -18,7 +18,6 @@ dist/
 storage/
 *.mp4
 *.mkv
-*.ts
 *.m3u8
 
 # Database
